@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "reset.css";
+
+:root {
+  --primary: #0c224a;
+}
