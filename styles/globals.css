@@ -3,6 +3,11 @@
 @tailwind utilities;
 @import "reset.css";
 
-:root {
-  --primary: #0c224a;
+@layer base {
+  :root {
+    --primary: #0c224a;
+  }
+  body {
+    color: #ffffff;
+  }
 }
