@@ -1,3 +1,9 @@
+import { HomepageHero } from "@/components/homepage-hero"
+
 export default function Home() {
-  return <main className="min-h-screen bg-black"></main>
+  return (
+    <main className="bg-black">
+      <HomepageHero />
+    </main>
+  )
 }
