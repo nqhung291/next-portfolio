@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-three/drei": "^9.88.2",
     "@react-three/fiber": "^8.14.5",
+    "@react-three/rapier": "^1.1.2",
     "@studio-freight/react-lenis": "^0.0.36",
     "@types/three": "^0.157.0",
     "class-variance-authority": "^0.7.0",
