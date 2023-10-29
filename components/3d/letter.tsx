@@ -1,37 +1,31 @@
-import { useMemo, useRef } from "react"
-import type { Position } from "@/types"
+import { useRef } from "react"
 import { Center, Text3D } from "@react-three/drei"
-import { Euler, useFrame } from "@react-three/fiber"
-import {
-  CuboidCollider,
-  RapierRigidBody,
-  RigidBody,
-  RigidBodyProps,
-} from "@react-three/rapier"
-import { MathUtils, Vector3 } from "three"
+import { useFrame } from "@react-three/fiber"
+import { RapierRigidBody, RigidBody, RigidBodyProps } from "@react-three/rapier"
+import { Vector3 } from "three"
 
-interface Props extends RigidBodyProps {
+interface Props {
   char: string
   vec?: Vector3
-  scale?: number
-  r?: (x: number) => number
+  wrapperProps?: RigidBodyProps
+  textProps?: any
+  impulseScalar?: number
 }
 
 export const Letter = ({
   char,
   vec = new Vector3(),
-  scale,
-  r = MathUtils.randFloatSpread,
-  ...props
+  wrapperProps,
+  textProps,
+  impulseScalar = 1.5,
 }: Props) => {
   const api = useRef<RapierRigidBody>(null)
-  useFrame((state, delta) => {
-    delta = Math.min(0.1, delta)
+  useFrame(() => {
     api.current?.applyImpulse(
       vec
         .copy(api.current.translation() as Vector3)
         .negate()
-        .multiplyScalar(2),
+        .multiplyScalar(impulseScalar),
       true
     )
   })
@@ -42,21 +36,22 @@ export const Letter = ({
       friction={0.1}
       colliders="cuboid"
       ref={api}
-      {...props}
+      {...wrapperProps}
     >
       <Center>
         <Text3D
           font="/fonts/noir-pro-bold.blob"
           bevelEnabled
+          bevelThickness={5}
+          bevelSize={2}
           smooth={1}
           scale={0.125}
           size={60}
           height={4}
           curveSegments={10}
-          bevelThickness={10}
-          bevelSize={2}
           bevelOffset={0}
           bevelSegments={5}
+          {...textProps}
         >
           {char}
           <meshNormalMaterial />

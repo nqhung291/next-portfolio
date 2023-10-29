@@ -3,12 +3,12 @@ import { useFrame } from "@react-three/fiber"
 import { BallCollider, RapierRigidBody, RigidBody } from "@react-three/rapier"
 import { Vector3 } from "three"
 
-export const KineticPointer = () => {
+export const KineticPointer = ({ vec = new Vector3() }) => {
   const ref = useRef<RapierRigidBody>(null)
 
   useFrame(({ mouse, viewport }) => {
     ref.current?.setNextKinematicTranslation(
-      new Vector3(
+      vec.set(
         (mouse.x * viewport.width) / 2,
         (mouse.y * viewport.height) / 2,
         0
@@ -22,7 +22,7 @@ export const KineticPointer = () => {
       type="kinematicPosition"
       colliders={false}
     >
-      <BallCollider args={[5]} />
+      <BallCollider args={[3]} />
     </RigidBody>
   )
 }
