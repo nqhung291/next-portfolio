@@ -20,7 +20,7 @@ export const Letter = ({
   impulseScalar = 1.5,
 }: Props) => {
   const api = useRef<RapierRigidBody>(null)
-  useFrame(() => {
+  useFrame((state, delta) => {
     api.current?.applyImpulse(
       vec
         .copy(api.current.translation() as Vector3)
